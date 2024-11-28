@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GantiPassword;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +31,16 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 # Admin
-Route::get('/dashboard',  [DashboardController::class, 'index']);
 Route::middleware(['Auth'])->group(function(){
-    // Route::get('/profil-user/edit/{id}', [ProfilController::class, 'edit'])->name('profil-user-edit');
-    // Route::put('/profil-user/update/{id}', [ProfilController::class, 'update'])->name('profil-user-update');
+    # Dashboard
+    Route::get('/dashboard',  [DashboardController::class, 'index']);
+
+    # Profil
+    Route::get('/profil-user/edit/{id}', [ProfilController::class, 'edit'])->name('profil-user-edit');
+    Route::put('/profil-user/update/{id}', [ProfilController::class, 'update'])->name('profil-user-update');
+
+    Route::get('/gantiPassword/{id}', [GantiPassword::class, 'change'])->name('change-password');
+    Route::put('/updatePassword/{id}', [GantiPassword::class, 'update'])->name('update-password');
 
     // // users
     // Route::resource('users', UsersController::class);
@@ -53,7 +61,4 @@ Route::middleware(['Auth'])->group(function(){
     // Route::post('/riwayat_paid/{id}', [RiwayatController::class, 'riwayat_paid'])->name('riwayat_paid');
     // Route::get('/export-excel', [RiwayatController::class, 'export_excel'])->name('riwayat-export-excel');
     // Route::get('/export-pdf', [RiwayatController::class, 'export_pdf'])->name('riwayat-export-pdf');
-
-    // Route::get('/gantiPassword/{id}', [GantiPassword::class, 'change'])->name('change-password');
-    // Route::put('/updatePassword/{id}', [GantiPassword::class, 'update'])->name('update-password');
 });

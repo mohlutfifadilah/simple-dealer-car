@@ -6,6 +6,7 @@
 
     </head>
     <body class="sb-nav-fixed">
+        @include('sweetalert::alert')
 
         @include('admin.template.nav')
 
