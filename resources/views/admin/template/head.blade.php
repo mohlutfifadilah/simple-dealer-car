@@ -8,3 +8,4 @@
 <link href="{{ asset('admin/css/styles.css') }}" rel="stylesheet" />
 <link rel="icon" href="{{ asset('main/img/logo.png') }}">
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

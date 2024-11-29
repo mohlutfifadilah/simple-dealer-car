@@ -31,5 +31,25 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('admin/js/datatables-simple-demo.js') }}"></script>
 
+        <script>
+            function confirmDelete(userId, what) {
+                Swal.fire({
+                    title: 'Hapus ' + what,
+                    text: "Anda Yakin ingin menghapusnya ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + userId).submit();
+                    }
+                });
+            }
+
+            @yield('js')
+        </script>
     </body>
 </html>

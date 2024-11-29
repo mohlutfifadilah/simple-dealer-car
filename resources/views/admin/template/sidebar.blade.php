@@ -2,12 +2,12 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <div class="sb-sidenav-menu-heading">Dashboard</div>
+                <a class="nav-link {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}" href="/dashboard">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <div class="sb-sidenav-menu-heading">Interface</div>
+                {{-- <div class="sb-sidenav-menu-heading">Interface</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Layouts
@@ -49,15 +49,25 @@
                             </nav>
                         </div>
                     </nav>
-                </div>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
+                </div> --}}
+                <div class="sb-sidenav-menu-heading">Data</div>
+                <a class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}" href="/user">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Pengguna
                 </a>
-                <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
+                <div class="sb-sidenav-menu-heading">Mobil</div>
+                <a class="nav-link {{ Request::segment(1) === 'mobil' ? 'active' : '' }}" href="/mobil">
+                    <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                    Mobil
+                </a>
+                <a class="nav-link {{ Request::segment(1) === 'varian' ? 'active' : '' }}" href="/varian">
+                    <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
+                    Varian
+                </a>
+                <div class="sb-sidenav-menu-heading">Website</div>
+                <a class="nav-link {{ Request::segment(1) === 'testimoni' ? 'active' : '' }}" href="/testimoni">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>
+                    Testimoni
                 </a>
             </div>
         </div>

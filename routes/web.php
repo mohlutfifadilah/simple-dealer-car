@@ -3,7 +3,11 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GantiPassword;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VarianController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +36,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 # Admin
 Route::middleware(['Auth'])->group(function(){
+
     # Dashboard
     Route::get('/dashboard',  [DashboardController::class, 'index']);
 
@@ -42,14 +47,17 @@ Route::middleware(['Auth'])->group(function(){
     Route::get('/gantiPassword/{id}', [GantiPassword::class, 'change'])->name('change-password');
     Route::put('/updatePassword/{id}', [GantiPassword::class, 'update'])->name('update-password');
 
-    // // users
-    // Route::resource('users', UsersController::class);
+    // users
+    Route::resource('user', UserController::class);
 
-    // // kategori
-    // Route::resource('kategori', KategoriController::class);
+    // testimoni
+    Route::resource('testimoni', TestimoniController::class);
 
-    // // armada
-    // Route::resource('armada', ArmadaController::class);
+    // mobil
+    Route::resource('mobil', MobilController::class);
+
+    // varian
+    Route::resource('varian', VarianController::class);
 
     // // invoice
     // Route::resource('invoice', InvoiceController::class);
