@@ -49,6 +49,13 @@
                 });
             }
 
+            const input = document.getElementById("onlyNumber");
+
+            input.addEventListener("input", function (e) {
+                // Hapus karakter yang bukan angka
+                this.value = this.value.replace(/[^0-9]/g, "");
+            });
+
             @yield('js')
         </script>
     </body>
