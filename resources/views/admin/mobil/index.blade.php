@@ -28,6 +28,7 @@
                                         <th>Nama</th>
                                         <th>Warna</th>
                                         <th>Detail Warna</th>
+                                        <th>Varian</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -37,11 +38,15 @@
                                         <th>Nama</th>
                                         <th>Warna</th>
                                         <th>Detail Warna</th>
+                                        <th>Varian</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     @foreach ($mobil as $m)
+                                    @php
+                                        $varian = \App\Models\Varian::where('id_mobil', $m->id)->get();
+                                    @endphp
                                         <tr>
                                             <td>
                                                 <img src="{{ asset('storage/mobil/' . $m->gambar) }}" alt="user-avatar"
@@ -50,6 +55,15 @@
                                             <td>{{ $m->nama }}</td>
                                             <td>{{ $m->warna }}</td>
                                             <td>{{ $m->detail_warna }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($varian as $v)
+                                                        <li class="mb-3">
+                                                            {{ $v->tipe }} &nbsp; | &nbsp; @currency($v->harga)
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                             <td>
                                                 <div class="d-flex flex-wrap justify-content-center">
                                                     {{-- Tombol Edit --}}

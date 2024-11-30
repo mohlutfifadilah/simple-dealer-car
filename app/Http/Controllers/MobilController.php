@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mobil;
+use App\Models\Varian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -204,6 +205,8 @@ class MobilController extends Controller
     {
         //
         $mobil = Mobil::find($id);
+        // Hapus semua varian yang terkait dengan id_mobil
+        Varian::where('id_mobil', $id)->delete();
         if($mobil->gambar){
             unlink(storage_path('app/mobil/' . $mobil->gambar));
             unlink(public_path('storage/mobil/' . $mobil->gambar));

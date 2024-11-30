@@ -50,14 +50,14 @@ Route::middleware(['Auth'])->group(function(){
     // users
     Route::resource('user', UserController::class);
 
-    // testimoni
-    Route::resource('testimoni', TestimoniController::class);
-
     // mobil
     Route::resource('mobil', MobilController::class);
 
     // varian
     Route::resource('varian', VarianController::class);
+    
+    // testimoni
+    Route::resource('testimoni', TestimoniController::class);
 
     // // invoice
     // Route::resource('invoice', InvoiceController::class);

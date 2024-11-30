@@ -9,7 +9,7 @@ class Varian extends Model
 {
     use HasFactory;
 
-    protected $table = 'testimoni';
+    protected $table = 'varian';
 
     protected $guarded = ['id'];
 
