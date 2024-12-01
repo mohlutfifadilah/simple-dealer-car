@@ -52,16 +52,16 @@
                                             <td>{{ $t->alamat }}</td>
                                             <td>
                                                 @php
-                                                    $filled = $t->bintang;
-                                                    $notFilled = 5 - $filled;
+                                                    $filled = (int) $t->bintang;
+                                                    $notFilled = 5 - $t->bintang;
                                                 @endphp
                                                 <div style="display: flex; gap: 2px; align-items: center;">
                                                     @for ($i = 1; $i <= $filled; $i++)
                                                         <i class="fas fa-star" style="color: #FFD43B;"></i>
                                                     @endfor
-                                                    @for ($i = 1; $i <= $notFilled; $i++)
-                                                        <i class="fa fa-star"></i>
-                                                    @endfor
+                                                    {{-- @for ($i = 1; $i <= $notFilled; $i++)
+                                                        <i class="fa-regular fa-star" style="color: #ccc;"></i>
+                                                    @endfor --}}
                                                 </div>
                                             </td>
                                             <td>{{ $t->isi }}</td>

@@ -18,6 +18,11 @@ class TestimoniController extends Controller
     {
         //
         $testimoni = Testimoni::orderBy('created_at', 'desc')->get();
+        $bintang = Testimoni::all()->map(function ($item) {
+            $item->filled = $item->bintang;
+            $item->notFilled = 5 - $item->bintang;
+            return $item;
+        });
         return view('admin.testimoni.index', compact('testimoni'));
     }
 
