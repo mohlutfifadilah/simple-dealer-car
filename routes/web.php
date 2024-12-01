@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\GantiPassword;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VarianController;
+use App\Models\Mobil;
+use App\Models\Testimoni;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +25,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+    $mobil = Mobil::limit(3)->get();
+    $testimoni = Testimoni::limit(3)->orderBy('created_at', 'desc')->get();
+    return view('main', compact('mobil', 'testimoni'));
 });
+
+Route::get('/detail_mobil/{id}', [DetailController::class, 'show'])->name('detail_mobil');
 
 Route::get('/kontak', function () {
     return view('kontak');
@@ -55,7 +62,7 @@ Route::middleware(['Auth'])->group(function(){
 
     // varian
     Route::resource('varian', VarianController::class);
-    
+
     // testimoni
     Route::resource('testimoni', TestimoniController::class);
 
