@@ -30,6 +30,7 @@ Route::get('/', function () {
     return view('main', compact('mobil', 'testimoni'));
 });
 
+Route::get('/semua_mobil', [DetailController::class, 'index'])->name('semua_mobil');
 Route::get('/detail_mobil/{id}', [DetailController::class, 'show'])->name('detail_mobil');
 
 Route::get('/kontak', function () {

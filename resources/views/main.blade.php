@@ -597,7 +597,7 @@
                                         <div class="col-6 border-end border-white">
                                             <i class="fa fa-paint-roller text-dark"></i> <span class="text-body ms-1">{{ $m->warna }} Warna</span>
                                         </div>
-                                        <div class="col-6 border-end border-white">
+                                        <div class="col-6">
                                             <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">{{ $count_tipe }} Tipe</span>
                                         </div>
                                     </div>
