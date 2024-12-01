@@ -61,14 +61,66 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Pesan Sekarang</a>
+                                <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3" data-bs-toggle="modal" data-bs-target="#pesanModal">Pesan Sekarang</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Testimonial End -->
+            <div class="modal fade" id="pesanModal" tabindex="-1" aria-labelledby="pesanModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pesanModalLabel">Pesan Mobil</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="pesanForm">
+                                <div class="mb-3">
+                                    <label for="warna" class="form-label">Pilih Warna</label>
+                                    <select class="form-select" id="warna" name="warna" required>
+                                        @foreach ($warna as $w)
+                                            <option value="{{ $w }}">{{ $w }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipe" class="form-label">Pilih Tipe</label>
+                                    <select class="form-select" id="tipe" name="tipe" required>
+                                        @foreach ($varian as $v)
+                                            <option value="{{ $v->tipe }}">{{ $v->tipe }} - @currency($v->harga)</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" id="kirimPesan">Kirim ke WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 @endsection
 @section('script')
+    document.getElementById('kirimPesan').addEventListener('click', function () {
+        // Ambil data dari modal
+        const warna = document.getElementById('warna').value;
+        const tipe = document.getElementById('tipe').value;
 
+        // Format pesan WhatsApp
+        const nomor_wa = '6287731680018'; // Ganti dengan nomor WhatsApp Anda
+        const pesan = encodeURIComponent(
+            `Halo, saya tertarik dengan mobil berikut:\n\n` +
+            `Nama Mobil: {{ $mobil->nama }}\n` +
+            `Warna: ${warna}\n` +
+            `Tipe: ${tipe}\n`
+        );
+
+        // Redirect ke WhatsApp
+        const waLink = `https://wa.me/${nomor_wa}?text=${pesan}`;
+        window.open(waLink, '_blank');
+    });
 @endsection
