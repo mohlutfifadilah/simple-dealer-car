@@ -71,9 +71,9 @@ class VarianController extends Controller
             ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Varian', 'type' => 'error']);
         }
 
-        if (Varian::where('tipe', $request->tipe)->exists()) {
-            return redirect()->back()->withInput()->with('tipe', 'Tipe sudah digunakan');
-        }
+        // if (Varian::where('tipe', $request->tipe)->exists()) {
+        //     return redirect()->back()->withInput()->with('tipe', 'Tipe sudah digunakan');
+        // }
 
         $cleanedAmount = preg_replace('/[^0-9]/', '', $request->harga);
 
@@ -145,12 +145,12 @@ class VarianController extends Controller
         }
 
         // Cek apakah embed HTML sudah ada di tabel desa
-        if($request->tipe != $varian->tipe){
-            if (Varian::where('tipe', $request->tipe)->exists()) {
-                Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
-                return redirect()->back()->withInput()->with('tipe', 'Tipe sudah digunakan!');
-            }
-        }
+        // if($request->tipe != $varian->tipe){
+        //     if (Varian::where('tipe', $request->tipe)->exists()) {
+        //         Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
+        //         return redirect()->back()->withInput()->with('tipe', 'Tipe sudah digunakan!');
+        //     }
+        // }
         $cleanedAmount = preg_replace('/[^0-9]/', '', $request->harga);
         $varian->update([
             'id_mobil' => intval($request->mobil),
