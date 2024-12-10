@@ -60,6 +60,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
                     Mobil
                 </a>
+                <a class="nav-link {{ Request::segment(1) === 'info_mobil' ? 'active' : '' }}" href="/info_mobil">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
+                    Detail
+                </a>
                 <a class="nav-link {{ Request::segment(1) === 'varian' ? 'active' : '' }}" href="/varian">
                     <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
                     Varian

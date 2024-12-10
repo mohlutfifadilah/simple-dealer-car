@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('id_mobil')->nullable();
             $table->string('gambar')->nullable();
             $table->string('warna')->nullable();
+            $table->string('kode_warna')->nullable();
             $table->timestamps();
         });
     }

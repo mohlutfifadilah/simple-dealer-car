@@ -1,16 +1,16 @@
 @extends('admin.template.main')
-@section('title', 'Mobil')
+@section('title', 'Detail')
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Mobil</h1>
+            <h1 class="mt-4">Detail</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item">Mobil</li>
-                <li class="breadcrumb-item active">Mobil</li>
+                <li class="breadcrumb-item active">Detail</li>
             </ol>
             <div class="row">
                 <div class="col">
-                    <a href="{{ route('mobil.create') }}" class="btn btn-success btn-sm mb-4"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="{{ route('info_mobil.create') }}" class="btn btn-success btn-sm mb-4"><i class="fas fa-plus"></i> Tambah</a>
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Mobil
+                            Detail
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
@@ -27,8 +27,6 @@
                                         <th>Gambar</th>
                                         <th>Nama</th>
                                         <th>Warna</th>
-                                        <th>Detail Warna</th>
-                                        <th>Varian</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -37,48 +35,36 @@
                                         <th>Gambar</th>
                                         <th>Nama</th>
                                         <th>Warna</th>
-                                        <th>Detail Warna</th>
-                                        <th>Varian</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($mobil as $m)
+                                    @foreach ($detail as $i)
                                     @php
-                                        $varian = \App\Models\Varian::where('id_mobil', $m->id)->get();
+                                        $mobil = \App\Models\Mobil::where('id', $i->id_mobil)->first();
                                     @endphp
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('storage/mobil/' . $m->gambar) }}" alt="user-avatar"
+                                                <img src="{{ asset('storage/mobil/' . $i->gambar) }}" alt="user-avatar"
                                             class="img-fluid" height="250" width="250" id="profileImage" />
                                             </td>
-                                            <td>{{ $m->nama }}</td>
-                                            <td>{{ $m->warna }}</td>
-                                            <td>{{ $m->detail_warna }}</td>
-                                            <td>
-                                                <ul>
-                                                    @foreach ($varian as $v)
-                                                        <li class="mb-3">
-                                                            {{ $v->tipe }} &nbsp; | &nbsp; @currency($v->harga)
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </td>
+                                            <td>{{ $mobil->nama }}</td>
+                                            <td>{{ $i->warna }} ({{ $i->kode_warna }})</td>
                                             <td>
                                                 <div class="d-flex flex-wrap justify-content-center">
                                                     {{-- Tombol Edit --}}
                                                     <a class="btn btn-sm btn-warning text-white mb-2 mb-md-0 me-md-2"
-                                                        href="{{ route('mobil.edit', $m->id) }}">
+                                                        href="{{ route('info_mobil.edit', $i->id) }}">
                                                         <i class="fas fa-edit"></i> Ubah
                                                     </a>
 
                                                     {{-- Tombol Hapus --}}
-                                                    <form id="delete-form-{{ $m->id }}" action="{{ route('mobil.destroy', $m->id) }}"
+                                                    <form id="delete-form-{{ $i->id }}" action="{{ route('info_mobil.destroy', $i->id) }}"
                                                         method="post" class="mb-2 mb-md-0">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete({{ $m->id }}, 'Mobil')">
+                                                            onclick="confirmDelete({{ $i->id }}, 'Detail')">
                                                             <i class="fas fa-trash"></i> Hapus
                                                         </button>
                                                     </form>

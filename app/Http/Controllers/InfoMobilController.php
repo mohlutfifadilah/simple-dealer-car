@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfoMobil;
+use App\Models\Mobil;
 use App\Models\Varian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,8 +19,15 @@ class InfoMobilController extends Controller
     public function index()
     {
         //
-        $mobil = Mobil::orderBy('created_at', 'desc')->get();
-        return view('admin.mobil.index', compact('mobil'));
+        $mobil = Mobil::get()->count();
+        if($mobil < 1){
+            Alert::alert('Gagal', 'Tambahkan mobil terlebih dahulu ', 'error');
+            return redirect()->back()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Mobil', 'type' => 'error']);
+        } else {
+            $detail = InfoMobil::orderBy('created_at', 'desc')->get();
+            return view('admin.info_mobil.index', compact('detail'));
+        }
+
     }
 
     /**
@@ -30,7 +38,8 @@ class InfoMobilController extends Controller
     public function create()
     {
         //
-        return view('admin.mobil.mobil_add');
+        $mobil = Mobil::all();
+        return view('admin.info_mobil.info_mobil_add', compact('mobil'));
     }
 
     /**
@@ -44,28 +53,28 @@ class InfoMobilController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'gambar' => 'mimes:jpeg,png,jpg|max:2048|required',
-            'nama' => 'required',
+            'mobil' => 'required',
             'warna' => 'required',
-            'detail_warna' => 'required',
+            'kode_warna' => 'required',
         ],
         [
             'gambar.mimes' => 'Format Gambar tidak valid',
             'gambar.max' => 'Gambar maksimal 2 mb',
             'gambar.required' => 'Gambar harus diisi',
-            'nama.required' => 'Nama harus diisi',
+            'mobil.required' => 'Mobil harus diisi',
             'warna.required' => 'Warna harus diisi',
-            'detail_warna.required' => 'Detail Warna harus diisi',
+            'kode_warna.required' => 'Kode Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
             Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
             return redirect()->back()->withErrors($validator)
-                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Mobil', 'type' => 'error']);
+                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Detail', 'type' => 'error']);
         }
 
-        if (Mobil::where('nama', $request->nama)->exists()) {
-            return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan');
-        }
+        // if (Mobil::where('nama', $request->nama)->exists()) {
+        //     return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan');
+        // }
 
         if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
@@ -77,7 +86,7 @@ class InfoMobilController extends Controller
                 return redirect()->back()->with('gambar', 'Ukuran file maksimal 2 mb');
             }
             $file = $request->file('gambar');
-            $image = $request->file('gambar')->store('mobil/');
+            $image = $request->file('gambar')->store('mobil');
             $file->move('storage/mobil/', $image);
             $image = str_replace('mobil/', '', $image);
             // if($profil->foto){
@@ -88,15 +97,15 @@ class InfoMobilController extends Controller
             $image = null;
         }
 
-        Mobil::create([
+        InfoMobil::create([
+            'id_mobil' => intval($request->mobil),
             'gambar' => $image,
-            'nama' => $request->nama,
             'warna' => $request->warna,
-            'detail_warna' => $request->detail_warna,
+            'kode_warna' => $request->kode_warna,
         ]);
 
-        Alert::alert('Berhasil', 'Mobil berhasil ditambahkan ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Mobil berhasil ditambahkan');
+        Alert::alert('Berhasil', 'Detail berhasil ditambahkan ', 'success');
+        return redirect()->route('info_mobil.index')->withSuccess('Detail berhasil ditambahkan');
     }
 
     /**
@@ -119,8 +128,9 @@ class InfoMobilController extends Controller
     public function edit($id)
     {
         //
-        $mobil = Mobil::find($id);
-        return view('admin.mobil.mobil_edit', compact('mobil'));
+        $info_mobil = InfoMobil::find($id);
+        $mobil = Mobil::all();
+        return view('admin.info_mobil.info_mobil_edit', compact('info_mobil', 'mobil'));
     }
 
     /**
@@ -133,35 +143,36 @@ class InfoMobilController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $mobil = Mobil::find($id);
+        $info_mobil = InfoMobil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'gambar' => 'mimes:jpeg,png,jpg|max:2048',
-            'nama' => 'required',
+            'gambar' => 'mimes:jpeg,png,jpg|max:2048|required',
+            'mobil' => 'required',
             'warna' => 'required',
-            'detail_warna' => 'required',
+            'kode_warna' => 'required',
         ],
         [
             'gambar.mimes' => 'Format Gambar tidak valid',
             'gambar.max' => 'Gambar maksimal 2 mb',
-            'nama.required' => 'Nama harus diisi',
+            'gambar.required' => 'Gambar harus diisi',
+            'mobil.required' => 'Mobil harus diisi',
             'warna.required' => 'Warna harus diisi',
-            'detail_warna.required' => 'Detail Warna harus diisi',
+            'kode_warna.required' => 'Kode Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
             Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
             return redirect()->back()->withErrors($validator)
-                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Edit Mobil', 'type' => 'error']);
+                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Edit Detail', 'type' => 'error']);
         }
 
         // Cek apakah embed HTML sudah ada di tabel desa
-        if($request->nama != $mobil->nama){
-            if (Mobil::where('nama', $request->nama)->exists()) {
-                Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
-                return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan!');
-            }
-        }
+        // if($request->nama != $info_mobil->nama){
+        //     if (Mobil::where('nama', $request->nama)->exists()) {
+        //         Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
+        //         return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan!');
+        //     }
+        // }
 
         if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
@@ -176,23 +187,23 @@ class InfoMobilController extends Controller
             $image = $request->file('gambar')->store('mobil/');
             $file->move('storage/mobil/', $image);
             $image = str_replace('mobil/', '', $image);
-            if($mobil->gambar){
-                unlink(storage_path('app/mobil/' . $mobil->gambar));
-                unlink(public_path('storage/mobil/' . $mobil->gambar));
+            if($info_mobil->gambar){
+                unlink(storage_path('app/mobil/' . $info_mobil->gambar));
+                unlink(public_path('storage/mobil/' . $info_mobil->gambar));
             }
         } else {
-            $image = $mobil->gambar;
+            $image = $info_mobil->gambar;
         }
 
-        $mobil->update([
+        $info_mobil->update([
+            'id_mobil' => intval($request->mobil),
             'gambar' => $image,
-            'nama' => $request->nama,
             'warna' => $request->warna,
-            'detail_warna' => $request->detail_warna,
+            'kode_warna' => $request->kode_warna,
         ]);
 
-        Alert::alert('Berhasil', 'Mobil berhasil diubah ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Mobil berhasil diubah');
+        Alert::alert('Berhasil', 'Detail berhasil diubah ', 'success');
+        return redirect()->route('info_mobil.index')->withSuccess('Detail berhasil diubah');
     }
 
     /**
@@ -204,16 +215,16 @@ class InfoMobilController extends Controller
     public function destroy($id)
     {
         //
-        $mobil = Mobil::find($id);
+        $info_mobil = InfoMobil::find($id);
         // Hapus semua varian yang terkait dengan id_mobil
-        Varian::where('id_mobil', $id)->delete();
-        if($mobil->gambar){
-            unlink(storage_path('app/mobil/' . $mobil->gambar));
-            unlink(public_path('storage/mobil/' . $mobil->gambar));
+        // Varian::where('id_mobil', $id)->delete();
+        if($info_mobil->gambar){
+            unlink(storage_path('app/mobil/' . $info_mobil->gambar));
+            unlink(public_path('storage/mobil/' . $info_mobil->gambar));
           }
-        $mobil->delete();
+        $info_mobil->delete();
 
-        Alert::alert('Berhasil', 'Mobil berhasil dihapus ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Data Mobil berhasil dihapus');
+        Alert::alert('Berhasil', 'Detail berhasil dihapus ', 'success');
+        return redirect()->route('info_mobil.index')->withSuccess('Data Detail berhasil dihapus');
     }
 }

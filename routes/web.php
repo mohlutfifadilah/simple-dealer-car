@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\GantiPassword;
+use App\Http\Controllers\InfoMobilController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ProfilController;
@@ -63,6 +64,9 @@ Route::middleware(['Auth'])->group(function(){
     Route::get('/download-brosur/{id}', function($id) {
         return response()->download(storage_path('app/brosur/' . $id));
     })->name('download-brosur');
+
+    // detail
+    Route::resource('info_mobil', InfoMobilController::class);
 
     // varian
     Route::resource('varian', VarianController::class);
