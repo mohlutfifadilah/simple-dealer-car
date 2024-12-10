@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('mobil', function (Blueprint $table) {
             $table->id();
-            $table->string('id_info_mobil')->nullable();
             $table->string('nama');
             $table->string('brosur');
             $table->timestamps();

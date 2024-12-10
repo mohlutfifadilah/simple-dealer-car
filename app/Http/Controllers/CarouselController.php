@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InfoMobil;
-use App\Models\Mobil;
+use App\Models\Carousel;
 use App\Models\Varian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class MobilController extends Controller
+class CarouselController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,18 +43,18 @@ class MobilController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048|required',
+            'gambar' => 'mimes:jpeg,png,jpg|max:2048|required',
             'nama' => 'required',
-            // 'warna' => 'required',
-            // 'detail_warna' => 'required',
+            'warna' => 'required',
+            'detail_warna' => 'required',
         ],
         [
-            'brosur.mimes' => 'Format File tidak valid',
-            'brosur.max' => 'File maksimal 2 mb',
-            'brosur.required' => 'Brosur harus diisi',
+            'gambar.mimes' => 'Format Gambar tidak valid',
+            'gambar.max' => 'Gambar maksimal 2 mb',
+            'gambar.required' => 'Gambar harus diisi',
             'nama.required' => 'Nama harus diisi',
-            // 'warna.required' => 'Warna harus diisi',
-            // 'detail_warna.required' => 'Detail Warna harus diisi',
+            'warna.required' => 'Warna harus diisi',
+            'detail_warna.required' => 'Detail Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -68,19 +67,19 @@ class MobilController extends Controller
             return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan');
         }
 
-        if ($request->file('brosur')) {
+        if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
-            $fileSize = $request->file('brosur')->getSize();
+            $fileSize = $request->file('gambar')->getSize();
 
             // Periksa apakah ukuran file melebihi batas maksimum (2 MB)
             if ($fileSize > 2 * 1024 * 1024) {
                 // File terlalu besar, kembalikan respons dengan pesan kesalahan
-                return redirect()->back()->with('brosur', 'Ukuran file maksimal 2 mb');
+                return redirect()->back()->with('gambar', 'Ukuran file maksimal 2 mb');
             }
-            $file = $request->file('brosur');
-            $image = $request->file('brosur')->store('brosur');
-            $file->move('storage/brosur/', $image);
-            $image = str_replace('brosur/', '', $image);
+            $file = $request->file('gambar');
+            $image = $request->file('gambar')->store('mobil/');
+            $file->move('storage/mobil/', $image);
+            $image = str_replace('mobil/', '', $image);
             // if($profil->foto){
             //     unlink(storage_path('app/kegiatan/' . $profil->nama . '/' . $profil->foto));
             //     unlink(public_path('storage/kegiatan/' . $profil->nama . '/' . $profil->foto));
@@ -90,10 +89,10 @@ class MobilController extends Controller
         }
 
         Mobil::create([
-            'brosur' => $image,
+            'gambar' => $image,
             'nama' => $request->nama,
-            // 'warna' => $request->warna,
-            // 'detail_warna' => $request->detail_warna,
+            'warna' => $request->warna,
+            'detail_warna' => $request->detail_warna,
         ]);
 
         Alert::alert('Berhasil', 'Mobil berhasil ditambahkan ', 'success');
@@ -137,18 +136,17 @@ class MobilController extends Controller
         $mobil = Mobil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048|required',
+            'gambar' => 'mimes:jpeg,png,jpg|max:2048',
             'nama' => 'required',
-            // 'warna' => 'required',
-            // 'detail_warna' => 'required',
+            'warna' => 'required',
+            'detail_warna' => 'required',
         ],
         [
-            'brosur.mimes' => 'Format File tidak valid',
-            'brosur.max' => 'File maksimal 2 mb',
-            'brosur.required' => 'Brosur harus diisi',
+            'gambar.mimes' => 'Format Gambar tidak valid',
+            'gambar.max' => 'Gambar maksimal 2 mb',
             'nama.required' => 'Nama harus diisi',
-            // 'warna.required' => 'Warna harus diisi',
-            // 'detail_warna.required' => 'Detail Warna harus diisi',
+            'warna.required' => 'Warna harus diisi',
+            'detail_warna.required' => 'Detail Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -165,32 +163,32 @@ class MobilController extends Controller
             }
         }
 
-        if ($request->file('brosur')) {
+        if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
-            $fileSize = $request->file('brosur')->getSize();
+            $fileSize = $request->file('gambar')->getSize();
 
             // Periksa apakah ukuran file melebihi batas maksimum (2 MB)
             if ($fileSize > 2 * 1024 * 1024) {
                 // File terlalu besar, kembalikan respons dengan pesan kesalahan
-                return redirect()->back()->with('brosur', 'Ukuran file maksimal 2 mb');
+                return redirect()->back()->with('gambar', 'Ukuran file maksimal 2 mb');
             }
-            $file = $request->file('brosur');
-            $image = $request->file('brosur')->store('brosur');
-            $file->move('storage/brosur/', $image);
-            $image = str_replace('brosur/', '', $image);
-            if($mobil->brosur){
-                unlink(storage_path('app/brosur/' . $mobil->brosur));
-                unlink(public_path('storage/brosur/' . $mobil->brosur));
+            $file = $request->file('gambar');
+            $image = $request->file('gambar')->store('mobil/');
+            $file->move('storage/mobil/', $image);
+            $image = str_replace('mobil/', '', $image);
+            if($mobil->gambar){
+                unlink(storage_path('app/mobil/' . $mobil->gambar));
+                unlink(public_path('storage/mobil/' . $mobil->gambar));
             }
         } else {
-            $image = $mobil->brosur;
+            $image = $mobil->gambar;
         }
 
         $mobil->update([
-            'brosur' => $image,
+            'gambar' => $image,
             'nama' => $request->nama,
-            // 'warna' => $request->warna,
-            // 'detail_warna' => $request->detail_warna,
+            'warna' => $request->warna,
+            'detail_warna' => $request->detail_warna,
         ]);
 
         Alert::alert('Berhasil', 'Mobil berhasil diubah ', 'success');
@@ -209,10 +207,9 @@ class MobilController extends Controller
         $mobil = Mobil::find($id);
         // Hapus semua varian yang terkait dengan id_mobil
         Varian::where('id_mobil', $id)->delete();
-        InfoMobil::where('id_mobil', $id)->delete();
-        if($mobil->brosur){
-            unlink(storage_path('app/brosur/' . $mobil->brosur));
-            unlink(public_path('storage/brosur/' . $mobil->brosur));
+        if($mobil->gambar){
+            unlink(storage_path('app/mobil/' . $mobil->gambar));
+            unlink(public_path('storage/mobil/' . $mobil->gambar));
           }
         $mobil->delete();
 

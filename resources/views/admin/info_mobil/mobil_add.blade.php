@@ -17,19 +17,20 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="brosur" class="form-label">Upload Brosur</label>
-                                        <input class="form-control @if(session('brosur')) is-invalid @endif @error('brosur') is-invalid @enderror" type="file" id="brosur" name="brosur" value="" placeholder="" />
+                                        <label for="gambar" class="form-label">Gambar</label>
+                                        <input class="form-control @if(session('gambar')) is-invalid @endif @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" value="" placeholder="" />
                                         <small class="text-muted">
-                                            * Maksimal ukuran brosur 2mb <br>
+                                            * Ukuran : 250x250 <br>
+                                            * Maksimal ukuran gambar 2 gb (jpeg, jpg, png) <br>
                                         </small>
-                                        @error('brosur')
-                                            <small id="brosur" class="text-danger">
+                                        @error('gambar')
+                                            <small id="gambar" class="text-danger">
                                                 {{ $message }}
                                             </small>
                                         @enderror
-                                        @if (session('brosur'))
-                                            <small id="brosur" class="text-danger">
-                                                {{ session('brosur') }}
+                                        @if (session('gambar'))
+                                            <small id="gambar" class="text-danger">
+                                                {{ session('gambar') }}
                                             </small>
                                         @endif
                                     </div>
@@ -49,7 +50,7 @@
                                             </small>
                                         @endif
                                     </div>
-                                    {{-- <div class="mb-3 col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <label for="warna" class="form-label">Jumlah Warna</label>
                                         <input class="form-control @if(session('warna')) is-invalid @endif @error('warna') is-invalid @enderror" type="text" id="onlyNumber" name="warna" value="{{ old('warna') }}" placeholder="" />
                                         @error('warna')
@@ -76,7 +77,7 @@
                                                 {{ session('detail_warna') }}
                                             </small>
                                         @endif
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="mt-2 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2"><i class="fas fa-plus"></i> Tambah</button>

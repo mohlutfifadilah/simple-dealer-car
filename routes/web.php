@@ -60,6 +60,9 @@ Route::middleware(['Auth'])->group(function(){
 
     // mobil
     Route::resource('mobil', MobilController::class);
+    Route::get('/download-brosur/{id}', function($id) {
+        return response()->download(storage_path('app/brosur/' . $id));
+    })->name('download-brosur');
 
     // varian
     Route::resource('varian', VarianController::class);
