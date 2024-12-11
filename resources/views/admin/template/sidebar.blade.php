@@ -73,6 +73,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>
                     Testimoni
                 </a>
+                <a class="nav-link {{ Request::segment(1) === 'carousel' ? 'active' : '' }}" href="/carousel">
+                    <div class="sb-nav-link-icon"><i class="fab fa-flipboard"></i></div>
+                    Carousel
+                </a>
             </div>
         </div>
     </nav>

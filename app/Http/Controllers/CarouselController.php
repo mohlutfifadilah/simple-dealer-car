@@ -18,8 +18,8 @@ class CarouselController extends Controller
     public function index()
     {
         //
-        $mobil = Mobil::orderBy('created_at', 'desc')->get();
-        return view('admin.mobil.index', compact('mobil'));
+        $carousel = Carousel::orderBy('created_at', 'desc')->get();
+        return view('admin.carousel.index', compact('carousel'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CarouselController extends Controller
     public function create()
     {
         //
-        return view('admin.mobil.mobil_add');
+        return view('admin.carousel.carousel_add');
     }
 
     /**
@@ -44,28 +44,22 @@ class CarouselController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'gambar' => 'mimes:jpeg,png,jpg|max:2048|required',
-            'nama' => 'required',
-            'warna' => 'required',
-            'detail_warna' => 'required',
         ],
         [
             'gambar.mimes' => 'Format Gambar tidak valid',
             'gambar.max' => 'Gambar maksimal 2 mb',
             'gambar.required' => 'Gambar harus diisi',
-            'nama.required' => 'Nama harus diisi',
-            'warna.required' => 'Warna harus diisi',
-            'detail_warna.required' => 'Detail Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
             Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
             return redirect()->back()->withErrors($validator)
-                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Mobil', 'type' => 'error']);
+                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Tambah Carousel', 'type' => 'error']);
         }
 
-        if (Mobil::where('nama', $request->nama)->exists()) {
-            return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan');
-        }
+        // if (Mobil::where('nama', $request->nama)->exists()) {
+        //     return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan');
+        // }
 
         if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
@@ -77,9 +71,9 @@ class CarouselController extends Controller
                 return redirect()->back()->with('gambar', 'Ukuran file maksimal 2 mb');
             }
             $file = $request->file('gambar');
-            $image = $request->file('gambar')->store('mobil/');
-            $file->move('storage/mobil/', $image);
-            $image = str_replace('mobil/', '', $image);
+            $image = $request->file('gambar')->store('carousel');
+            $file->move('storage/carousel/', $image);
+            $image = str_replace('carousel/', '', $image);
             // if($profil->foto){
             //     unlink(storage_path('app/kegiatan/' . $profil->nama . '/' . $profil->foto));
             //     unlink(public_path('storage/kegiatan/' . $profil->nama . '/' . $profil->foto));
@@ -88,15 +82,12 @@ class CarouselController extends Controller
             $image = null;
         }
 
-        Mobil::create([
+        Carousel::create([
             'gambar' => $image,
-            'nama' => $request->nama,
-            'warna' => $request->warna,
-            'detail_warna' => $request->detail_warna,
         ]);
 
-        Alert::alert('Berhasil', 'Mobil berhasil ditambahkan ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Mobil berhasil ditambahkan');
+        Alert::alert('Berhasil', 'Carousel berhasil ditambahkan ', 'success');
+        return redirect()->route('carousel.index')->withSuccess('Carousel berhasil ditambahkan');
     }
 
     /**
@@ -119,8 +110,8 @@ class CarouselController extends Controller
     public function edit($id)
     {
         //
-        $mobil = Mobil::find($id);
-        return view('admin.mobil.mobil_edit', compact('mobil'));
+        $carousel = Carousel::find($id);
+        return view('admin.carousel.carousel_edit', compact('carousel'));
     }
 
     /**
@@ -133,35 +124,29 @@ class CarouselController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $mobil = Mobil::find($id);
+        $carousel = Carousel::find($id);
 
         $validator = Validator::make($request->all(), [
             'gambar' => 'mimes:jpeg,png,jpg|max:2048',
-            'nama' => 'required',
-            'warna' => 'required',
-            'detail_warna' => 'required',
         ],
         [
             'gambar.mimes' => 'Format Gambar tidak valid',
             'gambar.max' => 'Gambar maksimal 2 mb',
-            'nama.required' => 'Nama harus diisi',
-            'warna.required' => 'Warna harus diisi',
-            'detail_warna.required' => 'Detail Warna harus diisi',
         ]);
 
         if ($validator->fails()) {
             Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
             return redirect()->back()->withErrors($validator)
-                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Edit Mobil', 'type' => 'error']);
+                ->withInput()->with(['status' => 'Terjadi Kesalahan', 'title' => 'Edit Carousel', 'type' => 'error']);
         }
 
         // Cek apakah embed HTML sudah ada di tabel desa
-        if($request->nama != $mobil->nama){
-            if (Mobil::where('nama', $request->nama)->exists()) {
-                Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
-                return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan!');
-            }
-        }
+        // if($request->nama != $mobil->nama){
+        //     if (Mobil::where('nama', $request->nama)->exists()) {
+        //         Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
+        //         return redirect()->back()->withInput()->with('nama', 'Nama Mobil sudah digunakan!');
+        //     }
+        // }
 
         if ($request->file('gambar')) {
             // Ambil ukuran file dalam bytes
@@ -173,26 +158,23 @@ class CarouselController extends Controller
                 return redirect()->back()->with('gambar', 'Ukuran file maksimal 2 mb');
             }
             $file = $request->file('gambar');
-            $image = $request->file('gambar')->store('mobil/');
-            $file->move('storage/mobil/', $image);
-            $image = str_replace('mobil/', '', $image);
-            if($mobil->gambar){
-                unlink(storage_path('app/mobil/' . $mobil->gambar));
-                unlink(public_path('storage/mobil/' . $mobil->gambar));
+            $image = $request->file('gambar')->store('carousel');
+            $file->move('storage/carousel/', $image);
+            $image = str_replace('carousel/', '', $image);
+            if($carousel->gambar){
+                unlink(storage_path('app/carousel/' . $carousel->gambar));
+                unlink(public_path('storage/carousel/' . $carousel->gambar));
             }
         } else {
-            $image = $mobil->gambar;
+            $image = $carousel->gambar;
         }
 
-        $mobil->update([
+        $carousel->update([
             'gambar' => $image,
-            'nama' => $request->nama,
-            'warna' => $request->warna,
-            'detail_warna' => $request->detail_warna,
         ]);
 
-        Alert::alert('Berhasil', 'Mobil berhasil diubah ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Mobil berhasil diubah');
+        Alert::alert('Berhasil', 'Carousel berhasil diubah ', 'success');
+        return redirect()->route('carousel.index')->withSuccess('Carousel berhasil diubah');
     }
 
     /**
@@ -204,16 +186,16 @@ class CarouselController extends Controller
     public function destroy($id)
     {
         //
-        $mobil = Mobil::find($id);
+        $carousel = Carousel::find($id);
         // Hapus semua varian yang terkait dengan id_mobil
-        Varian::where('id_mobil', $id)->delete();
-        if($mobil->gambar){
-            unlink(storage_path('app/mobil/' . $mobil->gambar));
-            unlink(public_path('storage/mobil/' . $mobil->gambar));
+        // Varian::where('id_mobil', $id)->delete();
+        if($carousel->gambar){
+            unlink(storage_path('app/carousel/' . $carousel->gambar));
+            unlink(public_path('storage/carousel/' . $carousel->gambar));
           }
-        $mobil->delete();
+        $carousel->delete();
 
-        Alert::alert('Berhasil', 'Mobil berhasil dihapus ', 'success');
-        return redirect()->route('mobil.index')->withSuccess('Data Mobil berhasil dihapus');
+        Alert::alert('Berhasil', 'Carousel berhasil dihapus ', 'success');
+        return redirect()->route('carousel.index')->withSuccess('Data Carousel berhasil dihapus');
     }
 }

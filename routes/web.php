@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\GantiPassword;
@@ -73,6 +74,9 @@ Route::middleware(['Auth'])->group(function(){
 
     // testimoni
     Route::resource('testimoni', TestimoniController::class);
+
+    // testimoni
+    Route::resource('carousel', CarouselController::class);
 
     // // invoice
     // Route::resource('invoice', InvoiceController::class);
