@@ -146,7 +146,7 @@ class InfoMobilController extends Controller
         $info_mobil = InfoMobil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'gambar' => 'mimes:jpeg,png,jpg|max:2048|required',
+            'gambar' => 'mimes:jpeg,png,jpg|max:2048',
             'mobil' => 'required',
             'warna' => 'required',
             'kode_warna' => 'required',
@@ -154,7 +154,6 @@ class InfoMobilController extends Controller
         [
             'gambar.mimes' => 'Format Gambar tidak valid',
             'gambar.max' => 'Gambar maksimal 2 mb',
-            'gambar.required' => 'Gambar harus diisi',
             'mobil.required' => 'Mobil harus diisi',
             'warna.required' => 'Warna harus diisi',
             'kode_warna.required' => 'Kode Warna harus diisi',

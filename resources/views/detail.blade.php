@@ -1,7 +1,18 @@
 @extends('template.main')
 @section('title', 'Detail Mobil')
 @section('style')
+    <style>
+        /* Efek hover pada lingkaran warna */
+        .color-circle:hover {
+            transform: scale(1.1); /* Membesarkan lingkaran sedikit */
+            transition: transform 0.3s ease;
+        }
 
+        /* Efek transisi gambar */
+        #mobilImage {
+            transition: opacity 0.5s ease;
+        }
+    </style>
 @endsection
 @section('content')
 <!-- Testimonial Start -->
@@ -19,49 +30,64 @@
                     </div>
                     <div class="row g-5 mt-2 pt-1">
                         <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+                            <!-- Gambar Mobil -->
                             <div class="about-img">
                                 <div class="img-1">
-                                    <img src="{{ asset('storage/mobil/' . $mobil->gambar) }}" class="img-fluid rounded h-100 w-100" alt="" style="width: 250px; height: 250px;">
+                                    <img id="mobilImage"
+                                        src="{{ asset('storage/mobil/' . $warna[0]->gambar) }}" class="img-fluid rounded h-100 w-100" alt="Mobil {{ $mobil->nama_mobil }}" style="width: 250px; height: 250px; object-fit: cover; transition: opacity 0.5s ease;">
                                 </div>
-                                <!-- <div class="img-2">
-                                    <img src="img/about2.jpg" class="img-fluid rounded w-100" alt="">
-                                </div> -->
+                            </div>
+
+                            <!-- Nama Warna -->
+                            <div class="mt-3">
+                                <p id="namaWarna" class="text-bold">
+                                    {{ $warna[0]->warna }} <!-- Default nama warna -->
+                                </p>
+                            </div>
+
+                            <!-- Pilihan Warna -->
+                            <div class="color-selector mt-3 text-center">
+                                @foreach ($warna as $w)
+                                    <div class="color-circle"
+                                        data-image="{{ asset('storage/mobil/' . $w->gambar) }}"
+                                        data-warna="{{ $w->warna }}"
+                                        style="background-color: {{ $w->kode_warna }};
+                                                width: 20px;
+                                                height: 20px;
+                                                margin: 0 5px;
+                                                border-radius: 50%;
+                                                display: inline-block;
+                                                cursor: pointer;
+                                                border: 1px solid gray;">
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
                             <div class="about-item">
                                 <div class="pb-5">
-                                    <h1 class="display-5 text-capitalize">{{ $mobil->nama }} <span class="text-primary"></span></h1>
-                                    <p class="mb-3">
-                                        Tersedia {{ $mobil->warna }} Warna :
-                                    </p>
-                                    @php
-                                        $warna = explode(',', $mobil->detail_warna);
-                                    @endphp
-                                    <div class="row g-4">
-                                        <div class="col-lg-6">
-                                            <div class="rounded">
-                                                @foreach ($warna as $w)
-                                                    <p class="mb-2"><i class="fa fa-check-circle text-primary me-1"></i> {{ $w }}</p>
-                                                @endforeach
-                                            </div>
+                                    <h1 class="display-5 text-capitalize mb-4">{{ $mobil->nama }} <span class="text-primary"></span></h1>
+                                    <div class="row gy-2 gx-0 mb-4">
+                                        <div class="col-4 border-end border-gray mr-4">
+                                            <span class="ms-1 text-bold" style="font-size: 14px; color: red;">Tipe</span>
+                                        </div>
+                                        <div class="col-4 ps-3">
+                                            <span class="ms-1 text-bold" style="font-size: 14px; color: red;">Harga</span>
                                         </div>
                                     </div>
-                                    <p class="mb-3">
-                                        Harga :
-                                    </p>
                                     @foreach ($varian as $v)
-                                        <div class="row gy-2 gx-0 mb-4">
-                                            <div class="col-4 border-end border-white">
+                                        <div class="row gy-2 gx-0 mb-4 bg-transparent">
+                                            <div class="col-4 border-end border-gray mr-4">
                                                 <span class="text-body ms-1">{{ $v->tipe }}</span>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-4 ps-3">
                                                 <span class="text-body ms-1">@currency($v->harga)</span>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
                                 <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3" data-bs-toggle="modal" data-bs-target="#pesanModal">Pesan Sekarang</a>
+                                <a href="{!! route('download-brosur-client', $mobil->brosur ) !!}" class="btn btn-primary btn-sm mt-5 text-center">Download Brosur</a>
                             </div>
                         </div>
                     </div>
@@ -81,7 +107,7 @@
                                     <label for="warna" class="form-label">Pilih Warna</label>
                                     <select class="form-select" id="warna" name="warna" required>
                                         @foreach ($warna as $w)
-                                            <option value="{{ $w }}">{{ $w }}</option>
+                                            <option value="{{ $w->warna }}">{{ $w->warna }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -89,9 +115,13 @@
                                     <label for="tipe" class="form-label">Pilih Tipe</label>
                                     <select class="form-select" id="tipe" name="tipe" required>
                                         @foreach ($varian as $v)
-                                            <option value="{{ $v->tipe }}">{{ $v->tipe }} - @currency($v->harga)</option>
+                                            <option value="{{ $v->tipe }} - @currency($v->harga)">{{ $v->tipe }} - @currency($v->harga)</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pesan" class="form-label">Pesan Tambahan</label>
+                                    <textarea class="form-control" name="pesan" id="pesan" cols="30" rows="5" placeholder="Kondisional"></textarea>
                                 </div>
                             </form>
                         </div>
@@ -105,10 +135,43 @@
 
 @endsection
 @section('script')
+    document.querySelectorAll('.color-circle').forEach(circle => {
+        circle.addEventListener('click', function () {
+            // Ambil elemen gambar dan nama warna
+            const mobilImage = document.getElementById('mobilImage');
+            const namaWarna = document.getElementById('namaWarna');
+
+            // Ambil URL gambar dan nama warna baru dari atribut data
+            const newImage = this.getAttribute('data-image');
+            const newWarna = this.getAttribute('data-warna');
+
+            // Animasi smooth untuk gambar
+            mobilImage.style.opacity = '0'; // Fade-out gambar
+            setTimeout(() => {
+                mobilImage.src = newImage; // Ganti gambar
+                mobilImage.style.opacity = '1'; // Fade-in gambar
+            }, 500); // Durasi sesuai dengan transition CSS
+
+            // Ganti nama warna secara langsung
+            namaWarna.style.opacity = '0'; // Fade-out nama warna
+            setTimeout(() => {
+                namaWarna.textContent = newWarna; // Ganti nama warna
+                namaWarna.style.opacity = '1'; // Fade-in nama warna
+            }, 500); // Sinkronisasi durasi dengan gambar
+        });
+
+        // Tambahkan border pada warna yang dipilih
+        circle.addEventListener('click', function () {
+            document.querySelectorAll('.color-circle').forEach(c => c.style.border = '1px solid gray');
+            this.style.border = '2px solid black';
+        });
+    });
+
     document.getElementById('kirimPesan').addEventListener('click', function () {
         // Ambil data dari modal
         const warna = document.getElementById('warna').value;
         const tipe = document.getElementById('tipe').value;
+        const isi_pesan = document.getElementById('pesan').value;
 
         // Format pesan WhatsApp
         const nomor_wa = '6287731680018'; // Ganti dengan nomor WhatsApp Anda
@@ -116,7 +179,10 @@
             `Halo, saya tertarik dengan mobil berikut:\n\n` +
             `Nama Mobil: {{ $mobil->nama }}\n` +
             `Warna: ${warna}\n` +
-            `Tipe: ${tipe}\n`
+            `Tipe: ${tipe}\n` +
+            `\n` +
+            `\n` +
+            `Pesan : ${isi_pesan}`
         );
 
         // Redirect ke WhatsApp

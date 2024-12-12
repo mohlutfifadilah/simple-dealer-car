@@ -40,15 +40,11 @@
         </ol>
         <!-- Carousel Items -->
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('main/img/carousel1.jpg') }}" class="carousel-img" alt="Slide 1">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('main/img/carousel2.jpg') }}" class="carousel-img" alt="Slide 2">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('main/img/carousel3.jpg') }}" class="carousel-img" alt="Slide 3">
-            </div>
+            @foreach ($carousel as $key => $c)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                    <img src="{{ asset('storage/carousel/' . $c->gambar) }}" class="carousel-img" alt="Slide 2">
+                </div>
+            @endforeach
         </div>
         <!-- Navigation -->
         <a class="carousel-control-prev d-md-none" href="#carouselId" role="button" data-bs-slide="prev">
@@ -350,10 +346,13 @@
                 </div>
                 <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
                     @foreach ($mobil as $m)
+                        @php
+                            $gambar = \App\Models\InfoMobil::where('id_mobil', $m->id)->first();
+                        @endphp
                         <div class="categories-item p-4">
                             <div class="categories-item-inner">
                                 <div class="categories-img rounded-top">
-                                    <img src="{{ asset('storage/mobil/' . $m->gambar) }}" class="img-fluid w-100 rounded-top" alt="" style="width: 250px; height: 250px;">
+                                    <img src="{{ asset('storage/mobil/' . $gambar->gambar) }}" class="img-fluid w-100 rounded-top" alt="" style="width: 250px; height: 250px;">
                                 </div>
                                 <div class="categories-content rounded-bottom p-4">
                                     <h4>{{ $m->nama }}</h4>
@@ -369,6 +368,7 @@
                                     </div> --}}
                                     @php
                                         $lowest_price = \App\Models\Varian::where('id_mobil', $m->id)->min('harga');
+                                        $count_warna = \App\Models\InfoMobil::where('id_mobil', $m->id)->count();
                                         $count_tipe = \App\Models\Varian::where('id_mobil', $m->id)->count();
                                     @endphp
                                     <div class="mb-4">
@@ -376,7 +376,7 @@
                                     </div>
                                     <div class="row gy-2 gx-0 text-center mb-4">
                                         <div class="col-6 border-end border-white">
-                                            <i class="fa fa-paint-roller text-dark"></i> <span class="text-body ms-1">{{ $m->warna }} Warna</span>
+                                            <i class="fa fa-paint-roller text-dark"></i> <span class="text-body ms-1">{{ $count_warna }} Warna</span>
                                         </div>
                                         <div class="col-6">
                                             <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">{{ $count_tipe }} Tipe</span>

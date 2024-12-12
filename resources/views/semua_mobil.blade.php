@@ -18,11 +18,14 @@
                     </div>
                     <div class="row">
                         @foreach ($mobil as $m)
+                            @php
+                                $gambar = \App\Models\InfoMobil::where('id_mobil', $m->id)->first();
+                            @endphp
                             <div class="col-xl-4">
                                 <div class="categories-item p-4">
                                     <div class="categories-item-inner text-center">
                                         <div class="categories-img rounded-top">
-                                            <img src="{{ asset('storage/mobil/' . $m->gambar) }}" class="img-fluid w-100 rounded-top" alt="" style="width: 250px; height: 250px;">
+                                            <img src="{{ asset('storage/mobil/' . $gambar->gambar) }}" class="img-fluid w-100 rounded-top" alt="" style="width: 250px; height: 250px;">
                                         </div>
                                         <div class="categories-content rounded-bottom p-4">
                                             <h4>{{ $m->nama }}</h4>
@@ -38,6 +41,7 @@
                                             </div> --}}
                                             @php
                                                 $lowest_price = \App\Models\Varian::where('id_mobil', $m->id)->min('harga');
+                                                $count_warna = \App\Models\InfoMobil::where('id_mobil', $m->id)->count();
                                                 $count_tipe = \App\Models\Varian::where('id_mobil', $m->id)->count();
                                             @endphp
                                             <div class="mb-4">
@@ -45,7 +49,7 @@
                                             </div>
                                             <div class="row gy-2 gx-0 text-center mb-4">
                                                 <div class="col-6 border-end border-white">
-                                                    <i class="fa fa-paint-roller text-dark"></i> <span class="text-body ms-1">{{ $m->warna }} Warna</span>
+                                                    <i class="fa fa-paint-roller text-dark"></i> <span class="text-body ms-1">{{ $count_warna }} Warna</span>
                                                 </div>
                                                 <div class="col-6">
                                                     <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">{{ $count_tipe }} Tipe</span>

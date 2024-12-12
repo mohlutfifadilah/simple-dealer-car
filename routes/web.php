@@ -11,8 +11,10 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VarianController;
+use App\Models\Carousel;
 use App\Models\Mobil;
 use App\Models\Testimoni;
+use App\Models\Varian;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,13 +29,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $mobil = Mobil::limit(3)->get();
-    $testimoni = Testimoni::limit(3)->orderBy('created_at', 'desc')->get();
-    return view('main', compact('mobil', 'testimoni'));
+    $carousel = Carousel::all();
+    $varianIds = Varian::pluck('id_mobil'); // Ambil semua id_mobil dari tabel varian
+    $mobil = Mobil::limit(3)->whereIn('id', $varianIds)->get(); // Ambil mobil yang id-nya ada di dalam $varianIds
+    $testimoni = Testimoni::orderBy('created_at', 'desc')->get();
+    return view('main', compact('carousel', 'mobil', 'testimoni'));
 });
 
 Route::get('/semua_mobil', [DetailController::class, 'index'])->name('semua_mobil');
 Route::get('/detail_mobil/{id}', [DetailController::class, 'show'])->name('detail_mobil');
+Route::get('/download-brosur-client/{id}', function($id) {
+        return response()->download(storage_path('app/brosur/' . $id));
+    })->name('download-brosur-client');
 
 Route::get('/kontak', function () {
     return view('kontak');

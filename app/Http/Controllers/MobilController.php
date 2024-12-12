@@ -44,7 +44,7 @@ class MobilController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048|required',
+            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048',
             'nama' => 'required',
             // 'warna' => 'required',
             // 'detail_warna' => 'required',
@@ -52,7 +52,6 @@ class MobilController extends Controller
         [
             'brosur.mimes' => 'Format File tidak valid',
             'brosur.max' => 'File maksimal 2 mb',
-            'brosur.required' => 'Brosur harus diisi',
             'nama.required' => 'Nama harus diisi',
             // 'warna.required' => 'Warna harus diisi',
             // 'detail_warna.required' => 'Detail Warna harus diisi',
@@ -86,7 +85,7 @@ class MobilController extends Controller
             //     unlink(public_path('storage/kegiatan/' . $profil->nama . '/' . $profil->foto));
             // }
         } else {
-            $image = null;
+            $image = '';
         }
 
         Mobil::create([
@@ -137,7 +136,7 @@ class MobilController extends Controller
         $mobil = Mobil::find($id);
 
         $validator = Validator::make($request->all(), [
-            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048|required',
+            'brosur' => 'mimes:jpeg,png,jpg,pdf|max:2048',
             'nama' => 'required',
             // 'warna' => 'required',
             // 'detail_warna' => 'required',
@@ -145,7 +144,6 @@ class MobilController extends Controller
         [
             'brosur.mimes' => 'Format File tidak valid',
             'brosur.max' => 'File maksimal 2 mb',
-            'brosur.required' => 'Brosur harus diisi',
             'nama.required' => 'Nama harus diisi',
             // 'warna.required' => 'Warna harus diisi',
             // 'detail_warna.required' => 'Detail Warna harus diisi',

@@ -52,7 +52,11 @@
                                                 Varian : {{ $count_tipe }} Varian
                                             </td>
                                             <td>
-                                                <a href="{!! route('download-brosur', $m->brosur ) !!}" class="btn btn-primary btn-sm">Download Brosur</a>
+                                                @if ($m->brosur === '')
+                                                    -
+                                                @else
+                                                    <a href="{!! route('download-brosur', $m->brosur ) !!}" class="btn btn-primary btn-sm">Download Brosur</a>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-wrap justify-content-center">
