@@ -46,16 +46,16 @@
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Kontak</h4>
-                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Jl. Diponegoro No.222, Mijen, Gedanganak, Kec. Ungaran Tim., Kabupaten Semarang, Jawa Tengah 59567</a>
+                            <a href="https://www.google.com/maps/place/Suzuki+mobil/@-7.1517433,110.3989526,591m/data=!3m1!1e3!4m6!3m5!1s0x2e7087370fcf29e7:0xa896697b2067ef9d!8m2!3d-7.1522282!4d110.4008805!16s%2Fg%2F11ft4txgms?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D" target="blank"><i class="fa fa-map-marker-alt me-2"></i> Ngablak, Candirejo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50513</a>
                             <!-- <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> suzukiindomobilsemarang@gmail.com</a> -->
-                            <a href="tel:+62812 2021 6533"><i class="fas fa-phone me-2"></i> 0812-2021-6533</a>
-                            <a href="https://wa.me/6281380829259"><i class="fab fa-whatsapp me-2"></i> +6281380829259</a>
-                            <!-- <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a> -->
+                            {{-- <a href="tel:+62812 2021 6533"><i class="fas fa-phone me-2"></i> 0812-2021-6533</a> --}}
+                            <a href="https://wa.me/6287731680018" target="blank"><i class="fab fa-whatsapp me-2"></i> 087731680018</a>
+                            {{-- <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a> --}}
                             <div class="d-flex">
-                                <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f text-white"></i></a>
-                                <!-- <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter text-white"></i></a> -->
+                                {{-- <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f text-white"></i></a>
+                                <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter text-white"></i></a>
                                 <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram text-white"></i></a>
-                                <!-- <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in text-white"></i></a> -->
+                                <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in text-white"></i></a> --}}
                             </div>
                         </div>
                     </div>
