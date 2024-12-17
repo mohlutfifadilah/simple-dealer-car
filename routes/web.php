@@ -14,6 +14,7 @@ use App\Http\Controllers\VarianController;
 use App\Models\Carousel;
 use App\Models\Mobil;
 use App\Models\Testimoni;
+use App\Models\User;
 use App\Models\Varian;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,9 @@ Route::get('/', function () {
     $varianIds = Varian::pluck('id_mobil'); // Ambil semua id_mobil dari tabel varian
     $mobil = Mobil::limit(3)->whereIn('id', $varianIds)->get(); // Ambil mobil yang id-nya ada di dalam $varianIds
     $testimoni = Testimoni::orderBy('created_at', 'desc')->get();
-    return view('main', compact('carousel', 'mobil', 'testimoni'));
+    $user = User::find(1);
+    $no = $user->no;
+    return view('main', compact('carousel', 'mobil', 'testimoni', 'no'));
 });
 
 Route::get('/semua_mobil', [DetailController::class, 'index'])->name('semua_mobil');
@@ -43,7 +46,9 @@ Route::get('/download-brosur-client/{id}', function($id) {
     })->name('download-brosur-client');
 
 Route::get('/kontak', function () {
-    return view('kontak');
+    $user = User::find(1);
+    $no = $user->no;
+    return view('kontak', compact('no'));
 });
 
 Route::get('/login', [LoginController::class, 'index']);
@@ -65,7 +70,7 @@ Route::middleware(['Auth'])->group(function(){
     Route::put('/updatePassword/{id}', [GantiPassword::class, 'update'])->name('update-password');
 
     // users
-    Route::resource('user', UserController::class);
+    // Route::resource('user', UserController::class);
 
     // mobil
     Route::resource('mobil', MobilController::class);

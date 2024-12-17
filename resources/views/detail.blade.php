@@ -40,7 +40,7 @@
 
                             <!-- Nama Warna -->
                             <div class="mt-3">
-                                <p id="namaWarna" class="text-bold">
+                                <p id="namaWarna" class="text-bold text-center">
                                     {{ $warna[0]->warna }} <!-- Default nama warna -->
                                 </p>
                             </div>
@@ -174,7 +174,7 @@
         const isi_pesan = document.getElementById('pesan').value;
 
         // Format pesan WhatsApp
-        const nomor_wa = '6287731680018'; // Ganti dengan nomor WhatsApp Anda
+        const nomor_wa = {{ $no }}; // Ganti dengan nomor WhatsApp Anda
         const pesan = encodeURIComponent(
             `Halo, saya tertarik dengan mobil berikut:\n\n` +
             `Nama Mobil: {{ $mobil->nama }}\n` +

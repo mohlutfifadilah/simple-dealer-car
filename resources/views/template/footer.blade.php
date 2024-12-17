@@ -31,7 +31,7 @@
                             <h4 class="text-white mb-4">Jam Kerja</h4>
                             <div class="mb-3">
                                 <h6 class="text-muted mb-0">Setiap Hari</h6>
-                                <p class="text-white mb-0">07.00 - 20.00</p>
+                                <p class="text-white mb-0">08.00 - 20.00</p>
                             </div>
                             <!-- <div class="mb-3">
                                 <h6 class="text-muted mb-0">Sabtu:</h6>
@@ -49,7 +49,7 @@
                             <a href="https://www.google.com/maps/place/Suzuki+mobil/@-7.1517433,110.3989526,591m/data=!3m1!1e3!4m6!3m5!1s0x2e7087370fcf29e7:0xa896697b2067ef9d!8m2!3d-7.1522282!4d110.4008805!16s%2Fg%2F11ft4txgms?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D" target="blank"><i class="fa fa-map-marker-alt me-2"></i> Ngablak, Candirejo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50513</a>
                             <!-- <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> suzukiindomobilsemarang@gmail.com</a> -->
                             {{-- <a href="tel:+62812 2021 6533"><i class="fas fa-phone me-2"></i> 0812-2021-6533</a> --}}
-                            <a href="https://wa.me/6287731680018" target="blank"><i class="fab fa-whatsapp me-2"></i> 087731680018</a>
+                            <a href="https://wa.me/{{ $no }}" target="blank"><i class="fab fa-whatsapp me-2"></i> {{ $no }}</a>
                             {{-- <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a> --}}
                             <div class="d-flex">
                                 {{-- <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f text-white"></i></a>

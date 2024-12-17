@@ -38,29 +38,50 @@
                                             </small>
                                         @endif
                                     </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="no" class="form-label">No Whatsapp</label>
+                                        <input
+                                        class="form-control @if(session('no')) is-invalid @endif @error('no') is-invalid @enderror"
+                                        type="text"
+                                        id="no"
+                                        name="no"
+                                        value="{{ $user->no }}"
+                                        placeholder=""
+                                        />
+                                        @error('no')
+                                            <small id="no" class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                        @if (session('no'))
+                                            <small id="no" class="text-danger">
+                                                {{ session('no') }}
+                                            </small>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label for="email" class="form-label">E-mail</label>
-                                    <input
-                                    class="form-control @if(session('email')) is-invalid @endif @error('email') is-invalid @enderror"
-                                    type="text"
-                                    id="email"
-                                    name="email"
-                                    value="{{ $user->email }}"
-                                    placeholder=""
-                                    />
-                                    @error('email')
-                                        <small id="email" class="text-danger">
-                                            {{ $message }}
-                                        </small>
-                                    @enderror
-                                    @if (session('email'))
-                                        <small id="email" class="text-danger">
-                                            {{ session('email') }}
-                                        </small>
-                                    @endif
-                                </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">E-mail</label>
+                                        <input
+                                        class="form-control @if(session('email')) is-invalid @endif @error('email') is-invalid @enderror"
+                                        type="text"
+                                        id="email"
+                                        name="email"
+                                        value="{{ $user->email }}"
+                                        placeholder=""
+                                        />
+                                        @error('email')
+                                            <small id="email" class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                        @if (session('email'))
+                                            <small id="email" class="text-danger">
+                                                {{ session('email') }}
+                                            </small>
+                                        @endif
+                                    </div>
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary me-2">Simpan</button>
                                     <a class="btn btn-outline-danger" href="{{ route('change-password', Auth::user()->id) }}">Ganti Password</a>

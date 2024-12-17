@@ -127,7 +127,7 @@
                                     <p class="mb-0 text-dark me-2">Alamat:</p><i class="fas fa-map-marker-alt text-primary me-2"></i><p class="mb-0">Ngablak, Candirejo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50513</p>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <p class="mb-0 text-dark me-2">Nomor Telepon:</p><i class="fa fa-phone-alt text-primary me-2"></i><p class="mb-0">0877-3168-0018</p>
+                                    <p class="mb-0 text-dark me-2">Nomor Telepon:</p><i class="fa fa-phone-alt text-primary me-2"></i><p class="mb-0">{{ $no }}</p>
                                 </div>
                             </div>
                             <!-- <div class="bg-white rounded p-4 mb-4">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-12">
                         <div class="rounded">
-                            <iframe class="rounded w-100"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2574.0217626143367!2d110.39895258176064!3d-7.151743289451834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7087370fcf29e7%3A0xa896697b2067ef9d!2sSuzuki%20mobil!5e1!3m2!1sid!2sid!4v1734077377847!5m2!1sid!2sid" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe class="rounded w-100"  src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d250.7146348717274!2d110.40952040642483!3d-7.152209248690707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDknMDcuNiJTIDExMMKwMjQnMzQuMyJF!5e0!3m2!1sid!2sid!4v1734364297418!5m2!1sid!2sid" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
 

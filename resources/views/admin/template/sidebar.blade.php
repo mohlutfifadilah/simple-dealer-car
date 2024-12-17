@@ -51,11 +51,11 @@
                     </nav>
                 </div> --}}
                 <div class="sb-sidenav-menu-heading">Data</div>
-                <a class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}" href="/user">
+                {{-- <a class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}" href="/user">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Pengguna
                 </a>
-                <div class="sb-sidenav-menu-heading">Mobil</div>
+                <div class="sb-sidenav-menu-heading">Mobil</div> --}}
                 <a class="nav-link {{ Request::segment(1) === 'mobil' ? 'active' : '' }}" href="/mobil">
                     <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
                     Mobil

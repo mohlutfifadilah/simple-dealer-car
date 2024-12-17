@@ -5,8 +5,8 @@
                     <div class="col-lg-6 text-center text-lg-start mb-lg-0">
                         <div class="d-flex flex-wrap">
                             <a href="#" class="text-muted me-4"><i class="fas fa-map-marker-alt text-primary me-2"></i>Suzuki Mobil Pemuda</a>
-                            <a href="tel:tel:+62813 8082 9259" class="text-muted me-4"><i class="fas fa-phone-alt text-primary me-2"></i>0813-8082-9259</a>
-                            <a href="https://wa.me/6281380829259" target="_blank" rel="noopener noreferrer" class="text-muted me-4"><i class="fab fa-whatsapp text-primary me-2"></i>+6281380829259</a>
+                            <a href="tel:tel:+62813 8082 9259" class="text-muted me-4"><i class="fas fa-phone-alt text-primary me-2"></i>{{ $no }}</a>
+                            <a href="https://wa.me/ {{ $no }}" target="_blank" rel="noopener noreferrer" class="text-muted me-4"><i class="fab fa-whatsapp text-primary me-2"></i>+{{ $no }}</a>
                             <!-- <a href="mailto:suzukiindomobilsemarang@gmail.com" class="text-muted me-0"><i class="fas fa-envelope text-primary me-2"></i>suzukiindomobilsemarang@gmail.com</a> -->
                         </div>
                     </div>

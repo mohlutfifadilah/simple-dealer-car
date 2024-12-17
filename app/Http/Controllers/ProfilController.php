@@ -79,10 +79,12 @@ class ProfilController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'email' => 'required',
+            'no' => 'required',
         ],
         [
             'nama.required' => 'Nama harus diisi',
             'email.required' => 'Email harus diisi',
+            'no.required' => 'No Whatsapp harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -102,6 +104,14 @@ class ProfilController extends Controller
             if (User::where('email', $request->email)->exists()) {
                 Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
                 return redirect()->back()->withInput()->with('email', 'Email sudah digunakan!');
+            }
+        }
+
+        // Cek apakah embed HTML sudah ada di tabel desa
+        if($request->no != $user->no){
+            if (User::where('no', $request->no)->exists()) {
+                Alert::alert('Kesalahan', 'Terjadi Kesalahan ', 'error');
+                return redirect()->back()->withInput()->with('no', 'No Whatsapp sudah digunakan!');
             }
         }
 
@@ -125,10 +135,11 @@ class ProfilController extends Controller
         // } else {
         //     $image = $user->foto;
         // }
-
+        // dd($request->no);
         $user->update([
             'nama' => $request->nama,
             'email' => $request->email,
+            'no' => $request->no,
         ]);
 
         Alert::alert('Berhasil', 'Akun berhasil diedit ', 'success');
