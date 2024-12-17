@@ -124,7 +124,7 @@
                             <div class="bg-white rounded p-4 mb-4">
                                 <h4 class="mb-3">Lokasi</h4>
                                 <div class="d-flex align-items-center flex-shrink-0 mb-3">
-                                    <p class="mb-0 text-dark me-2">Alamat:</p><i class="fas fa-map-marker-alt text-primary me-2"></i><p class="mb-0">Ngablak, Candirejo, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50513</p>
+                                    <p class="mb-0 text-dark me-2">Alamat:</p><i class="fas fa-map-marker-alt text-primary me-2"></i><p class="mb-0">Jl. Diponegoro No.222, Mijen, Gedanganak, Kec. Ungaran Tim., Kabupaten Semarang, Jawa Tengah 59567</p>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <p class="mb-0 text-dark me-2">Nomor Telepon:</p><i class="fa fa-phone-alt text-primary me-2"></i><p class="mb-0">{{ $no }}</p>

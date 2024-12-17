@@ -174,7 +174,7 @@
         const isi_pesan = document.getElementById('pesan').value;
 
         // Format pesan WhatsApp
-        const nomor_wa = {{ $no }}; // Ganti dengan nomor WhatsApp Anda
+        const nomor_wa = {{ str_replace('0', '62', substr($no, 0, 1)) . substr($no, 1) }}; // Ganti dengan nomor WhatsApp Anda
         const pesan = encodeURIComponent(
             `Halo, saya tertarik dengan mobil berikut:\n\n` +
             `Nama Mobil: {{ $mobil->nama }}\n` +
